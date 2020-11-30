@@ -1,0 +1,6 @@
+.SearchResult{
+    text-align: left;
+    border: lightcoral 1px solid;
+    padding: 5px;
+    max-width: 90vw;
+}

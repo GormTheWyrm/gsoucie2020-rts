@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers} from 'redux';
+import searchReducer from './searchFeature/searchReducer'; //reducer
+import {} from './searchFeature/actions'; //add actions here
+
+
+const rootReducer = combineReducers({
+  searchReducer, //both key and value
+
+});
+
+const myStore = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  //webdev tools!
+);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={myStore}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

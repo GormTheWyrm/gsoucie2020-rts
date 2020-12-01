@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk';
 import searchReducer from './searchFeature/searchReducer'; //reducer
 import {} from './searchFeature/actions'; //add actions here
 
@@ -14,9 +15,15 @@ const rootReducer = combineReducers({
 
 });
 
+
 const myStore = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  //webdev tools!
+  //should I have an initial state here? I passed them in with the reducers instead
+  compose(  // compose allows the use of "enhancers" such as middleware and devtools
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), //devtools
+    applyMiddleware(thunk) //middleware - allegedly needed for thunks and async work
+  )
+
 );
 
 ReactDOM.render(

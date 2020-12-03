@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { saveResults, setQuery, getData } from './actions';
 import './SearchFeature.css';
-import axios from 'axios';
+
+
+//new simple goal: set state.query upn submit
+
 
 //when user submits query it should save query into state
 //...actual axios call made on main page so that the results can be mapped there
@@ -21,30 +25,39 @@ import axios from 'axios';
 
 
 
-// export default {
-//   search: function(query, parameters) {
-//     return axios.get(baseURL + query + parameters);
-//   }
-// };
-//return axios.get(finalURL);
-
 
 // Axios.get('http://hn.algolia.com/api/v1/search?query=test')
 
 function SearchBar() {
-    const baseURL = 'https://hn.algolia.com/api/v1/search?query=';
-    let query = ''; //use hook 
+    const dispatch = useDispatch();
+    const baseUrl = 'https://hn.algolia.com/api/v1/search?query=';
+    let query = ''; 
     //may need to deal with white space, seems like API is handling ok... at least in query
-    //write function to call ajax...
-    //and figure out how to get promise into state
-    
-    return(
-        <form className="searchForm">
+//set up tags and other parameters
+    let searchUrl = baseUrl + query; //add in other parameters...
+    //api data: {data}
+    let results = {hits: [{}], searchTerms: query, searchUrl: searchUrl };
+    let testData = {hits: [{title: 'test button'}], searchTerms: 'query', searchUrl: 'https://hn.algolia.com/api/v1/search?query=mine' }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('submit click');
+        dispatch(saveResults(results)); //update to include custom query
+
+    }
+    const handleClick = (event) => {
+        event.preventDefault();
+        console.log("test click")
+        dispatch(saveResults(testData));
+
+    }
+    return ( 
+        <form className="searchForm" onSubmit={handleSubmit}>
             <label>
-          Search for:
+                Search for:
        <input type="text" name="searchbar" className='Searchbar' />
-        </label>
-        <input type="submit" value="Search" />
+            </label>
+            <input type="submit" value="Search" />
+            <button onClick={handleClick}>test on click</button>
         </form>
     )
 }

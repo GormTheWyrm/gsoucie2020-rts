@@ -1,8 +1,6 @@
-//middleware acts on actions before they hit the reducer. We will need this for thunks
+//middleware acts on actions before they hit the reducer. 
 import axios from 'axios';
 import { saveResults } from './actions';
-
-//this middleware is being called after the reducer runs... meaning it is not updating state...
 
 
 //if no apiData this middleware should dispatch apiError...

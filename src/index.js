@@ -28,7 +28,7 @@ const myStore = createStore(
   //should I have an initial state here? I passed them in with the reducers instead
   compose(  // compose allows the use of "enhancers" such as middleware and devtools
   applyMiddleware(thunk, getApiData), //middleware - allegedly needed for thunks and async work
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), //devtools
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), //devtools; comment out if testign not on chrome
   // if devtools are first, apparently all actions are wrapped in another action
     //apply middleware is breaking edge browser
     //... will attempt to fix after I get chrome to work - ask in discord
